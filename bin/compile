@@ -1,13 +1,13 @@
 #FROM ubuntu:14.04
  
-apt-get update && apt-get install -y wget git curl
-apt-get update && apt-get install -y --no-install-recommends openjdk-7-jdk
-apt-get update && apt-get install -y maven ant ruby rbenv make
+sudo apt-get update && sudo apt-get install -y wget git curl
+sudo apt-get update && sudo apt-get install -y --no-install-recommends openjdk-7-jdk
+sudo apt-get update && sudo apt-get install -y maven ant ruby rbenv make
 echo "1.554.3" > .lts-version-number
 wget -q -O - http://pkg.jenkins-ci.org/debian-stable/jenkins-ci.org.key | sudo apt-key add -
 echo deb http://pkg.jenkins-ci.org/debian-stable binary/ >> /etc/apt/sources.list
-apt-get update && apt-get install -y jenkins
-mkdir -p /var/jenkins_home && chown -R jenkins /var/jenkins_home
+sudo apt-get update && sudo apt-get install -y jenkins
+sudo mkdir -p /var/jenkins_home && sudo chown -R jenkins /var/jenkins_home
 cat >> /tmp/WEB-INF/init.groovy << EOF
 import hudson.model.*;
 import jenkins.model.*;
@@ -15,7 +15,7 @@ import jenkins.model.*;
 println "--> setting agent port for jnlp"
 Jenkins.instance.setSlaveAgentPort(50000)
 EOF
-apt-get install -y zip && cd /tmp && zip -g /usr/share/jenkins/jenkins.war WEB-INF/init.groovy
+sudo apt-get install -y zip && cd /tmp && zip -g /usr/share/jenkins/jenkins.war WEB-INF/init.groovy
 
 #USER jenkins
 
